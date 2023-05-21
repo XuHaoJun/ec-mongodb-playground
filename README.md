@@ -46,6 +46,10 @@ const session = await mongoose.startSession({
 
 但對商品購買而言，在發生大量搶購時，會造成大量 request 失敗，很明顯不是我們想要的。
 
+這邊準備使用 redis 記錄該商品短時間(ex:1 秒)購買流量，若超過閥值，則動態在 rabbitmq 建立該商品專用的 queue，對應現實就是典型的排隊購買
+，不過這邊會牽涉如何 http response 的問題，實際做法限流(redis 用 userId, 購物車 id, 選擇的商品 ids + amount, 做一個購物事件的 hash)，
+和顯示該次購買已提交，請稍候的訊息。
+
 ### SQL
 
 Read, Isolation 設定，REPEATABLE READ 或 SERIALIZABLE。
