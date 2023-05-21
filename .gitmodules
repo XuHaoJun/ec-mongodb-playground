@@ -1,0 +1,3 @@
+[submodule "docker-compose/ec-mongodb-playground"]
+	path = docker-compose/ec-mongodb-playground
+	url = git@github.com:minhhungit/mongodb-cluster-docker-compose.git
